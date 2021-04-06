@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">tp_android</string>
+    <string name="app_name">Asteroid détecteur</string>
     <string name="main_title">DÉCOUVREZ CHAQUE JOUR LES ASTEROÏDES EN APPROCHE DE LA TERRE</string>
     <string name="begin_button">Commencer</string>
     <string name="image_description">homepage image</string>
+    <string name="return_home_button">Retour</string>
 </resources>
