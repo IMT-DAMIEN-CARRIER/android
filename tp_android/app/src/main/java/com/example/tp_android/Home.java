@@ -3,6 +3,7 @@ package com.example.tp_android;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,13 +36,22 @@ public class Home extends AppCompatActivity {
 
         this.apiService.getAsteroids()
                 .then(new CallbackInterface<List<Asteroid>>() {
+                    @SuppressLint("DefaultLocale")
                     @Override
                     public void onResponse(List<Asteroid> asteroids) {
                         numberOfAsteroidTextView.setText(
-                                String.format("%s %d", getString(R.string.number_of_asteroid), asteroids.size())
+                                String.format(
+                                        "%s %d",
+                                        getString(R.string.number_of_asteroid),
+                                        asteroids.size()
+                                )
                         );
 
-                        Toast.makeText(Home.this, "Données reçues ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(
+                                Home.this,
+                                R.string.data_received,
+                                Toast.LENGTH_SHORT
+                        ).show();
                     }
                 }).catchError(new CallbackInterface<String>() {
                     @Override
