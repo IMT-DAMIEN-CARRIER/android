@@ -5,4 +5,5 @@
     <string name="image_description">homepage image</string>
     <string name="return_home_button">Retour</string>
     <string name="data_received">Données reçues</string>
+    <string name="number_of_asteroid">Nombre d\'asteroides : </string>
 </resources>
