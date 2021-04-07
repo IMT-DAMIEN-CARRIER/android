@@ -4,4 +4,5 @@
     <string name="begin_button">Commencer</string>
     <string name="image_description">homepage image</string>
     <string name="return_home_button">Retour</string>
+    <string name="data_received">Données reçues</string>
 </resources>
