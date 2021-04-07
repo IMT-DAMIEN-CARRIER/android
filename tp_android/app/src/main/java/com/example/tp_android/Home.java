@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.tp_android.model.Asteroid;
 import com.example.tp_android.service.APIService;
+import com.example.tp_android.service.AsteroidArrayAdapter;
 import com.example.tp_android.service.CallbackInterface;
 
 import java.util.List;
@@ -47,6 +49,13 @@ public class Home extends AppCompatActivity {
                                 )
                         );
 
+                        AsteroidArrayAdapter adapter = new AsteroidArrayAdapter(
+                                getApplicationContext(),
+                                asteroids
+                        );
+
+                        listView.setAdapter(adapter);
+
                         Toast.makeText(
                                 Home.this,
                                 R.string.data_received,
@@ -59,6 +68,8 @@ public class Home extends AppCompatActivity {
                         Toast.makeText(Home.this, "Error", Toast.LENGTH_SHORT).show();
                     }
                 });
+
+        ;
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
