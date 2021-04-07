@@ -37,8 +37,12 @@ public class AsteroidArrayAdapter extends ArrayAdapter<Asteroid> {
 
         Asteroid asteroid = this.asteroids.get(position);
         final TextView textView = (TextView) rowView.findViewById(R.id.textView_asteroid);
+        final TextView textViewMagnitude = (TextView) rowView.findViewById(R.id.textView_asteroid_magnitude);
+        final TextView textViewDistance = (TextView) rowView.findViewById(R.id.textView_asteroid_distance);
 
         textView.setText(asteroid.getName());
+        textViewMagnitude.setText(String.format("Magnitude : %s", asteroid.getMagnitude()));
+        textViewDistance.setText(String.format("Distance : %s km", asteroid.getDistance()));
 
         return rowView;
     }
