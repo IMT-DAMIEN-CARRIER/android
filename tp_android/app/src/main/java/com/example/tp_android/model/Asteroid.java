@@ -4,14 +4,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class Asteroid {
+public class Asteroid implements Serializable {
     private String id;
     private String name;
     private BigDecimal magnitude;
     private BigDecimal distance;
+    private Integer orbitalPeriod;
 
     public Asteroid(JSONObject jsonObject) throws JSONException {
         this.loadFromJSONObject(jsonObject);
@@ -49,6 +51,14 @@ public class Asteroid {
 
     public void setDistance(BigDecimal distance) {
         this.distance = distance;
+    }
+
+    public Integer getOrbitalPeriod() {
+        return orbitalPeriod;
+    }
+
+    public void setOrbitalPeriod(Integer orbitalPeriod) {
+        this.orbitalPeriod = orbitalPeriod;
     }
 
     public void loadFromJSONObject(JSONObject json) {

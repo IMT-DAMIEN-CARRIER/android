@@ -7,7 +7,9 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -22,8 +24,6 @@ import com.example.tp_android.service.CallbackInterface;
 import java.util.List;
 
 public class Home extends AppCompatActivity {
-    private APIService apiService;
-
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +34,9 @@ public class Home extends AppCompatActivity {
         final TextView numberOfAsteroidTextView = (TextView) findViewById(R.id.number_of_asteroid);
         final Button button = findViewById(R.id.return_home_button);
 
-        this.apiService = APIService.getInstance(getApplicationContext());
+        APIService apiService = APIService.getInstance(getApplicationContext());
 
-        this.apiService.getAsteroids()
+        apiService.getAsteroids()
                 .then(new CallbackInterface<List<Asteroid>>() {
                     @SuppressLint("DefaultLocale")
                     @Override
@@ -55,6 +55,15 @@ public class Home extends AppCompatActivity {
                         );
 
                         listView.setAdapter(adapter);
+
+                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Asteroid asteroid = (Asteroid) asteroids.get(position);
+
+                                openAsteroidViewActivity(asteroid);
+                            }
+                        });
 
                         Toast.makeText(
                                 Home.this,
@@ -81,6 +90,12 @@ public class Home extends AppCompatActivity {
 
     public void returnMainActivity(){
         Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void openAsteroidViewActivity(Asteroid asteroid){
+        Intent intent = new Intent(this, AsteroidView.class);
+        intent.putExtra("ASTEROID", asteroid);
         startActivity(intent);
     }
 }

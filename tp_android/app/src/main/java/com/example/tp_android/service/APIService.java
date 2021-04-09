@@ -14,12 +14,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class APIService {
+    public static final String KEY = "C58gONGJ6cmtuGpZmeFHfj6Xr2oBJ1l7XREtuUWF";
 
     private RequestQueue queue;
     private static APIService instance;
@@ -42,8 +44,7 @@ public class APIService {
     {
         SimpleDateFormat df = new SimpleDateFormat("y-MM-dd");
         String formatted = df.format(new Date());
-        String key = "C58gONGJ6cmtuGpZmeFHfj6Xr2oBJ1l7XREtuUWF";
-        String url ="https://api.nasa.gov/neo/rest/v1/feed?start_date=" + formatted + "&end_date=" + formatted + "&api_key=" + key;
+        String url ="https://api.nasa.gov/neo/rest/v1/feed?start_date=" + formatted + "&end_date=" + formatted + "&api_key=" + KEY;
 
         Promise<List<Asteroid>> promise = new Promise<>();
 
@@ -65,6 +66,43 @@ public class APIService {
                             }
 
                             promise.promiseThen.onResponse(asteroids);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            promise.promiseCatch.onResponse(e.getMessage());
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        promise.promiseCatch.onResponse(error.getMessage());
+                    }
+                }
+        );
+
+        queue.add(request);
+
+        return promise;
+    }
+
+    public Promise<Integer> getAsteroid(String id)
+    {
+        Promise<Integer> promise = new Promise<>();
+
+        String url = "https://api.nasa.gov/neo/rest/v1/neo/" + id + "?api_key=" + KEY;
+
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONObject orbitalData = response.getJSONObject("orbital_data");
+                            BigDecimal orbitalPeriod = new BigDecimal(orbitalData.getString("orbital_period"));
+
+                            promise.promiseThen.onResponse(orbitalPeriod.intValue());
                         } catch (JSONException e) {
                             e.printStackTrace();
                             promise.promiseCatch.onResponse(e.getMessage());

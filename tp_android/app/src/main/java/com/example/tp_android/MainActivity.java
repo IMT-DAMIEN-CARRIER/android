@@ -18,12 +18,12 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openNewActivity();
+                openHomeActivity();
             }
         });
     }
 
-    public void openNewActivity(){
+    public void openHomeActivity(){
         Intent intent = new Intent(this, Home.class);
         startActivity(intent);
     }
