@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.example.tp_android.model.Asteroid;
 import com.example.tp_android.service.APIService;
 import com.example.tp_android.service.CallbackInterface;
+import com.example.tp_android.view.AsteroidOrbitView;
 
 import java.io.Serializable;
 
@@ -26,6 +27,7 @@ public class AsteroidView extends AppCompatActivity {
         final TextView asteroidDistance = (TextView) findViewById(R.id.asteroid_distance);
         final TextView asteroidMagnitude = (TextView) findViewById(R.id.asteroid_magnitude);
         final TextView asteroidPeriode = (TextView) findViewById(R.id.asteroid_periode);
+        final AsteroidOrbitView asteroidOrbitView = (AsteroidOrbitView) findViewById(R.id.asteroidOrbitView);
 
         asteroidName.setText(asteroid.getName());
         asteroidDistance.setText(String.format("Distance : %s km", asteroid.getDistance()));
@@ -38,6 +40,7 @@ public class AsteroidView extends AppCompatActivity {
                     @Override
                     public void onResponse(Integer periodOrbital) {
                         asteroidPeriode.setText(String.format("Periode orbitale : %d", periodOrbital));
+                        asteroidOrbitView.setAsteroid(asteroid);
 
                         Toast.makeText(
                                 AsteroidView.this,

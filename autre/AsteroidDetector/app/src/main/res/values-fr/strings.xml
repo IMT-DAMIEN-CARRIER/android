@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AsteroidDetector</string>
+    <string name="main_message">Découvrez les astéroïdes en approche de la Terre chaque jour</string>
+    <string name="start">Commencer</string>
+    <string name="distance">distance:</string>
+    <string name="magnitude">magnitude</string>
+    <string name="period">période:</string>
+</resources>

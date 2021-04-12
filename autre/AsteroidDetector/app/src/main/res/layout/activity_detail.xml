@@ -4,61 +4,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AsteroidView">
+    tools:context=".activity.DetailActivity">
 
     <TextView
-        android:id="@+id/asteroid_name"
+        android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:text="TextView"
-        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/asteroid_magnitude"
+        android:id="@+id/tvMagnitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/asteroid_name" />
+        app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
     <TextView
-        android:id="@+id/asteroid_distance"
+        android:id="@+id/tvDistance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.736"
-        app:layout_constraintStart_toEndOf="@+id/asteroid_magnitude"
-        app:layout_constraintTop_toBottomOf="@+id/asteroid_name" />
+        app:layout_constraintTop_toTopOf="@+id/tvMagnitude" />
 
     <TextView
-        android:id="@+id/asteroid_periode"
+        android:id="@+id/tvPeriod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="136dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/asteroid_distance"
-        app:layout_constraintHorizontal_bias="0.489"
-        app:layout_constraintStart_toEndOf="@+id/asteroid_magnitude"
-        app:layout_constraintTop_toBottomOf="@+id/asteroid_name" />
+        android:layout_marginTop="20dp"
+        android:text="..."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvMagnitude" />
 
-    <com.example.tp_android.view.AsteroidOrbitView
+    <fr.billygirboux.asteroiddetector.view.AsteroidOrbitView
         android:id="@+id/asteroidOrbitView"
         android:layout_width="400dp"
         android:layout_height="400dp"
-        android:layout_marginBottom="84dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/asteroid_periode"
+        app:layout_constraintTop_toBottomOf="@+id/tvPeriod"
         app:layout_constraintVertical_bias="0.502" />
 </androidx.constraintlayout.widget.ConstraintLayout>

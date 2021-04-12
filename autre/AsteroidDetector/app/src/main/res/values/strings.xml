@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AsteroidDetector</string>
+    <string name="main_message">Discover Asteroids</string>
+    <string name="start">Commencer</string>
+    <string name="distance">distance:</string>
+    <string name="magnitude">magnitude:</string>
+    <string name="period">period:</string>
+</resources>
