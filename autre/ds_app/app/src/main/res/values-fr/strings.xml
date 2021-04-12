@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ds_app</string>
+    <string name="main_message">Qulle météo sur Mars ?</string>
+    <string name="main_button">Voir l\'historique</string>
+    <string name="data_loaded">Données chargées</string>
+    <string name="pressure">Pression</string>
+    <string name="temperature">Température</string>
+    <string name="avg">Moyenne</string>
+</resources>

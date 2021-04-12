@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ds_app</string>
+    <string name="main_message">What meteo on Mars ?</string>
+    <string name="main_button">See history</string>
+    <string name="data_loaded">Data loaded</string>
+    <string name="pressure">Pressure</string>
+    <string name="temperature">Temperature</string>
+    <string name="avg">Average</string>
+</resources>
