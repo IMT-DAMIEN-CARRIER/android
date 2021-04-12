@@ -40,6 +40,7 @@ public class AsteroidView extends AppCompatActivity {
                     @Override
                     public void onResponse(Integer periodOrbital) {
                         asteroidPeriode.setText(String.format("Periode orbitale : %d", periodOrbital));
+                        asteroid.setOrbitalPeriod(periodOrbital);
                         asteroidOrbitView.setAsteroid(asteroid);
 
                         Toast.makeText(

@@ -21,6 +21,8 @@ public class AsteroidOrbitView extends View {
 
     private Asteroid asteroid;
 
+    private int increment;
+
     public AsteroidOrbitView(Context context) {
         super(context);
         init();
@@ -64,18 +66,31 @@ public class AsteroidOrbitView extends View {
     protected void onDraw(Canvas canvas) {
         int width = getWidth();
 
-        canvas.translate(width/2, width/2);
+        canvas.translate(width / 2, width / 2);
         canvas.drawCircle(0, 0, 60, sunPaint);
-        canvas.drawCircle(0, 0, width/2 - 50, orbitPaint);
-        canvas.translate(width/2 - 50, 0);
+        canvas.drawCircle(0, 0, width / 2 - 50, orbitPaint);
+        canvas.rotate(increment);
+        canvas.translate(width / 2 - 50, 0);
         canvas.drawCircle(0, 0, 30, earthPaint);
 
         if (asteroid != null) {
-            float orbitAsteroid = asteroid.getDistance().longValue() * (width/2 - 50) / SOLAR_DISTANCE;
+            float orbitAsteroid = asteroid.getDistance().longValue() * (width / 2 - 50) / SOLAR_DISTANCE;
             orbitAsteroid = Math.max(orbitAsteroid, 35);
+
             canvas.drawCircle(0, 0, orbitAsteroid, orbitPaint);
-            canvas.rotate(45);
+
+            float rotationAsteroid = (increment * 365f / asteroid.getOrbitalPeriod());
+
+            canvas.rotate(rotationAsteroid);
             canvas.drawCircle(-orbitAsteroid, 0, 15, asteroidPaint);
         }
+
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                increment++;
+                invalidate();
+            }
+        }, 20);
     }
 }
