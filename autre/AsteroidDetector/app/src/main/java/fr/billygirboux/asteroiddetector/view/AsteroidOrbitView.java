@@ -4,9 +4,12 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.core.view.GestureDetectorCompat;
 
 import fr.billygirboux.asteroiddetector.R;
 import fr.billygirboux.asteroiddetector.model.Asteroid;
@@ -21,6 +24,15 @@ public class AsteroidOrbitView extends View {
     private Paint asteroidPaint;
 
     private Asteroid asteroid;
+
+    private GestureDetector.OnGestureListener gestureListener;
+    private GestureDetectorCompat gestureDetectorCompat;
+
+    private int increment;
+    private float xInit;
+    private float yInit;
+
+    private boolean inAnimation = true;
 
     public AsteroidOrbitView(Context context) {
         super(context);
@@ -54,6 +66,38 @@ public class AsteroidOrbitView extends View {
         this.asteroidPaint = new Paint();
         this.asteroidPaint.setStyle(Paint.Style.FILL);
         this.asteroidPaint.setColor(getResources().getColor(R.color.colorAsteroid));
+
+        this.gestureListener = new GestureDetector.SimpleOnGestureListener() {
+
+            @Override
+            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+                xInit -= distanceX;
+                yInit -= distanceY;
+                invalidate();
+                return true;
+            }
+
+            @Override
+            public boolean onDoubleTap(MotionEvent e) {
+                xInit = 0;
+                yInit = 0;
+                invalidate();
+                return true;
+            }
+
+            @Override
+            public boolean onSingleTapConfirmed(MotionEvent e) {
+                inAnimation = !inAnimation;
+                invalidate();
+                return true;
+            }
+        };
+
+        gestureDetectorCompat = new GestureDetectorCompat(
+                this.getContext(),
+                this.gestureListener
+        );
+
     }
 
     public void setAsteroid(Asteroid asteroid) {
@@ -66,11 +110,14 @@ public class AsteroidOrbitView extends View {
 
         int width = getWidth();
 
+        canvas.translate(xInit, yInit);
+
         canvas.translate(width/2, width/2);
 
         canvas.drawCircle(0, 0, 60, sunPaint);
         canvas.drawCircle(0, 0, width/2 - 50, orbitPaint);
-        
+
+        canvas.rotate(increment % 360f);
         canvas.translate(width/2 - 50, 0);
 
         canvas.drawCircle(0, 0, 30, earthPaint);
@@ -81,14 +128,46 @@ public class AsteroidOrbitView extends View {
             orbitAsteroid = Math.max(orbitAsteroid, 35);
             canvas.drawCircle(0, 0, orbitAsteroid, orbitPaint);
 
-            canvas.rotate(45);
+            float rotationAsteroid = (increment * 365f / asteroid.getOrbitalPeriod()) % 360f;
+            canvas.rotate(rotationAsteroid);
             canvas.drawCircle(-orbitAsteroid, 0, 15, asteroidPaint);
 
         }
 
+        if (inAnimation) {
+            postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    increment++;
+                    invalidate();
+                }
+            }, 20);
+        }
+    }
 
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        /*
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_MOVE:
+                if (event.getHistorySize() == 0) return false;
+
+                float dx = event.getX() - event.getHistoricalX(0);
+                float dy = event.getY() - event.getHistoricalY(0);
+
+                xInit += dx;
+                yInit += dy;
+
+                break;
+        }
+
+         */
 
 
+        gestureDetectorCompat.onTouchEvent(event);
+
+        return true;
     }
 }

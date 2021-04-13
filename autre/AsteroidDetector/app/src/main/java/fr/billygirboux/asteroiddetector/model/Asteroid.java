@@ -15,6 +15,7 @@ public class Asteroid implements Serializable {
     private BigDecimal magnitude;
     private BigDecimal distance;
     private Integer orbitalPeriod;
+    private boolean isLiked;
 
     public Asteroid(JSONObject jsonObject) throws JSONException {
         this.loadFromJSON(jsonObject);
@@ -60,6 +61,14 @@ public class Asteroid implements Serializable {
 
     public void setOrbitalPeriod(Integer orbitalPeriod) {
         this.orbitalPeriod = orbitalPeriod;
+    }
+
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setLiked(boolean liked) {
+        isLiked = liked;
     }
 
     public void loadFromJSON(JSONObject json) throws JSONException {
